@@ -1,12 +1,10 @@
-/**
- * Server configuration
- */
+ let {
+   DB_USER,
+   DB_PASS,
+   DB_HOST
+ } = process.env;
 
-const DB_PASS = "root";
-const DB_USER = "root";
-const DB_HOST = "technicaltest.fcvqp.mongodb.net/dllo?retryWrites=true&w=majority";
-
-const MONGODB_OPTIONS = { useNewUrlParser: true, useUnifiedTopology: true };
+const MONGODB_OPTIONS = { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false };
 const MONGO_URI = `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}`;
 const port = process.env.DEV ? process.env.PORT : 5000;
 const morganMode = process.env.DEV ? 'dev' : 'tiny';

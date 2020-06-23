@@ -8,7 +8,7 @@ async function getRandomQuote () {
         headers: {
             'content-type': "application/octet-stream",
             'X-RapidAPI-Host': "andruxnet-random-famous-quotes.p.rapidapi.com",
-            'X-RapidAPI-Key': "202886de65mshb4615050b3e5714p180e88jsn1f91ad134fd8",
+            'X-RapidAPI-Key': process.env.X_RapidAPI_Key,
             "useQueryString": true
         },
         "params": {
@@ -22,7 +22,7 @@ async function getRandomQuote () {
 };
 
 async function getImage (search) {
-    let serviceKey = "bbbb542a159e414a8b94e96f81e5734c";
+    let serviceKey = process.env.serviceKey;
     let credentials = new CognitiveServicesCredentials(serviceKey);
     let imageSearchApiClient = new ImageSearchAPIClient(credentials);
     let imageResults = await imageSearchApiClient.imagesOperations.search(search);
@@ -33,9 +33,7 @@ async function getImage (search) {
 async function saveQuote () {
 
     const quote = await getRandomQuote();
-    console.log("quote:",quote);
     const imageUrl = await getImage(quote);
-    console.log("image:",imageUrl);
 
     const newQuote = new Quote({
         quote: quote,

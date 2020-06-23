@@ -1,8 +1,8 @@
 const { Router } = require('express');
+const quoteRouting = require('../app/Quote/route');
 
-const router = new Router();
-const quoteController = require('../app/QuoteController/controller')
+let router = new Router();
 
-router.use('/api/v1', quoteController);
+router.use('/api/v1', quoteRouting);
 
 module.exports = router;
