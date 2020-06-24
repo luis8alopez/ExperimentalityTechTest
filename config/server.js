@@ -16,7 +16,7 @@ const {
 } = require('./config');
 
 const server = (app) => {
-  mongoose.connect("mongodb+srv://root:root@technicaltest.fcvqp.mongodb.net/dllo?retryWrites=true&w=majority", MONGODB_OPTIONS);
+  mongoose.connect(MONGO_URI, MONGODB_OPTIONS);
   const conn = mongoose.connection;
   conn.once('open', () => { console.log('MongoDB Connected'); });
   conn.on('error', (err) => { console.log('MongoDB connection error: ', err); });
