@@ -16,12 +16,10 @@ const {
 } = require('./config');
 
 const server = (app) => {
-  mongoose.connect(MONGO_URI, MONGODB_OPTIONS, (err) => {
-    if (err) {
-      return console.log('Error while connecting to Mongo database', err);
-    }
-    console.log('Succesfull Mongo database connection!');
-  });
+  mongoose.connect(MONGO_URI, MONGODB_OPTIONS);
+  const conn = mongoose.connection;
+  conn.once('open', () => { console.log('MongoDB Connected'); });
+  conn.on('error', (err) => { console.log('MongoDB connection error: ', err); });
 
   app.set('port', port);
   app.use(bodyParser.json());
