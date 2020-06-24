@@ -18,7 +18,7 @@ const {
 const server = (app) => {
   mongoose.connect(MONGO_URI, MONGODB_OPTIONS, (err) => {
     if (err) {
-      return console.log('Error while connecting to Mongo database');
+      return console.log('Error while connecting to Mongo database', err);
     }
     console.log('Succesfull Mongo database connection!');
   });
