@@ -1,19 +1,12 @@
-const saveQuote = require('../Quote/quote');
+const { saveQuote } = require('../Quote/quote');
 const Quote = require('../Quote/model');
 
+exports.generateQuote = (_, res) =>
+  saveQuote()
+    .then((quote) => res.status(200).send(quote))
+    .catch((err) => es.status(404).send({ message: 'Something went wrong', error: err }));
 
-async function generateQuote(req, res) {
-  try {
-    let quote = await saveQuote();
-    res.status(200).send(quote);
-  }
-  catch (err) {
-    console.log(err);
-    res.status(404).send({ message: 'Something went wrong' });
-  }
-}
-
-async function deleteQuoteById(req, res) {
+exports.deleteQuoteById = (req, res) => {
   Quote.findByIdAndDelete({ _id: req.params.id })
     .then((doc) => {
       if (doc) {
@@ -34,7 +27,7 @@ async function deleteQuoteById(req, res) {
     })
 };
 
-async function getById(req, res) {
+exports.getById = (req, res) => {
   Quote.findById(req.params.id)
     .then((doc) => {
       if (doc) {
@@ -52,5 +45,3 @@ async function getById(req, res) {
       });
     })
 }
-
-module.exports = { generateQuote, deleteQuoteById, getById };

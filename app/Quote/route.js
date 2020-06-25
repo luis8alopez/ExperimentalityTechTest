@@ -5,7 +5,7 @@ const { generateQuote, deleteQuoteById, getById } = require('../QuoteController/
 let router = new Router();
 
 router.route('/generate-changing-life-quote')
-    .get((req, res) => {
+    .post((req, res) => {
         generateQuote(req, res);
     });
 
