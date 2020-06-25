@@ -3,8 +3,8 @@ const ImageSearchAPIClient = require('azure-cognitiveservices-imagesearch');
 const CognitiveServicesCredentials = require('ms-rest-azure').CognitiveServicesCredentials;
 const Quote = require('../Quote/model');
 
-async function getRandomQuote () {
-    let getResult = await axios.get("https://andruxnet-random-famous-quotes.p.rapidapi.com/", {
+const getRandomQuote = async () => {
+    const getResult = await axios.get("https://andruxnet-random-famous-quotes.p.rapidapi.com/", {
         headers: {
             'content-type': "application/octet-stream",
             'X-RapidAPI-Host': "andruxnet-random-famous-quotes.p.rapidapi.com",
@@ -16,12 +16,11 @@ async function getRandomQuote () {
             "count": "1"
         }
     });
-    let randomQuote = getResult.data;
-    console.log(randomQuote);
+    const randomQuote = getResult.data;
     return randomQuote[0].quote;
 };
 
-async function getImage (search) {
+const getImage = async (search) => {
     let serviceKey = process.env.serviceKey;
     let credentials = new CognitiveServicesCredentials(serviceKey);
     let imageSearchApiClient = new ImageSearchAPIClient(credentials);
@@ -30,22 +29,19 @@ async function getImage (search) {
     return firstImageResult;
 };
 
-async function saveQuote () {
+exports.saveQuote = async () => {
+    try {
+        const quote = await getRandomQuote();
+        const imageUrl = await getImage(quote);
 
-    const quote = await getRandomQuote();
-    const imageUrl = await getImage(quote);
+        const newQuote = new Quote({
+            quote: quote,
+            image: imageUrl
+        });
+        return newQuote.save();
 
-    const newQuote = new Quote({
-        quote: quote,
-        image: imageUrl
-    });
-   
-    return newQuote.save().then(result =>{
-        return result;
-    }).catch(error =>{
-        console.log('I couldn\'t save to the db: ', error);
-    });
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
 };
-
-module.exports = saveQuote;
-
