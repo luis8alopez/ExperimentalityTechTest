@@ -1,6 +1,6 @@
 const Router = require('express').Router;
 
-const { generateQuote, deleteQuoteById, getById } = require('../QuoteController/controller');
+const { generateQuote, deleteById, getById } = require('../QuoteController/controller');
 
 let router = new Router();
 
@@ -16,7 +16,7 @@ router.route('/get-record-by-id/:id')
 
 router.route('/delete-record-by-id/:id')
     .delete((req, res) => {
-        deleteQuoteById(req, res);
+        deleteById(req, res);
     });
 
 module.exports = router;

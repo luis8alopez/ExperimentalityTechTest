@@ -1,17 +1,12 @@
- let {
-   DB_USER,
-   DB_PASS,
-   DB_HOST
- } = process.env;
+let {
+  MONGOURI
+} = process.env;
 
-const MONGODB_OPTIONS = { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology:true};
-const MONGO_URI = `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}`;
-const port = process.env.DEV ? process.env.PORT : 5000;
+const MONGODB_OPTIONS = { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true };
 const morganMode = process.env.DEV ? 'dev' : 'tiny';
 
 module.exports = {
-  port,
   morganMode,
-  MONGO_URI,
-  MONGODB_OPTIONS
+  MONGODB_OPTIONS,
+  MONGOURI
 };

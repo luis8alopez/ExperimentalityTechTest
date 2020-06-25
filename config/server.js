@@ -11,18 +11,15 @@ const app = new express();
 dotenv.config();
 
 const {
-  port,
   morganMode,
-  MONGO_URI,
-  MONGODB_OPTIONS
+  MONGODB_OPTIONS,
+  MONGOURI
 } = require('./config');
 
-
-//Quemar todo
-mongoose.connect("mongodb+srv://root:root@technicaltest.fcvqp.mongodb.net/dllo?retryWrites=true&w=majority", MONGODB_OPTIONS);
+mongoose.connect(MONGOURI, MONGODB_OPTIONS);
 const conn = mongoose.connection;
-conn.once('open', () => { console.log('MongoDB Connected'); });
-conn.on('error', (err) => { console.log('MongoDB connection error: ', err); });
+conn.once('open', () => { console.log('Mongo Atlas Connected'); });
+conn.on('error', (err) => { console.log('Mongo Atlas connection error: ', err); });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
