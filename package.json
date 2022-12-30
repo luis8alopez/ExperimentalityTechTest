@@ -29,7 +29,7 @@
     "express-openapi": "^6.0.0",
     "http-status": "^1.4.2",
     "minimist": "^1.2.5",
-    "mocha": "^8.0.1",
+    "mocha": "^8.4.0",
     "mongoose": "^5.8.11",
     "morgan": "^1.9.1",
     "ms-rest-azure": "^3.0.0",
